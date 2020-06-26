@@ -30,7 +30,7 @@ PhageBoost -f example/data/NC_000907.fasta.gz -o results
 ### Notebooks
 There are basic notebook examples in the ```notebooks/```
 These notebooks provide a way how to bring your own genecalls to PhageBoost.
-You can connect your PhageBoost kernel to Jupyter via ipykernel:
+You can connect your PhageBoost kernel to your pre-existing Jupyter via ipykernel:
 
 ```
 conda activate PhageBoost
