@@ -1,0 +1,11 @@
+biopython
+joblib
+more-itertools
+numpy
+pandas
+pickleshare
+pyrodigal
+scipy
+tables
+xgboost
+cachier
