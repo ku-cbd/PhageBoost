@@ -47,9 +47,11 @@ python -m ipykernel install --user --name PhageBoost --display-name "PhageBoost"
 7. if x % of contig is predicted, assign the whole contig as phage
 8. parse regions together if close.
 9. proper documentation
+10. after ready for submit, i make the installation as pypi. 
 
 ## todo - in future
 2. add a nicer CLI (similar to the alpha phageboost)
 2. use dash/plotly for visualistion
 5. overall beautification
 6. add feeling adventurous button, to disable the .50 mean probability and only keep the std and mean and kruskal
+7. installation as a bioconda package
