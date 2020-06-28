@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Created: 2020-06-09 17:51:48
-# Last changed: Time-stamp: <Last changed 2020-06-15 15:53:43 by Thomas Sicheritz-Pontén, thomas>
+# Last changed: Time-stamp: <Last changed 2020-06-28 23:01:07 by Thomas Sicheritz-Pontén, thomas>
 
 import os
 import pandas as pd
@@ -139,8 +139,8 @@ def save_phage_as_fasta(res, fasta, look_for_repeat_flag, att_size, output, zipf
     files = []
     for contig in genomes:
         for phagename, phage, phage_metadata, start, stop, seq in genomes[contig]:
-            filename = '{}/{}.fasta.gz'.format(output, phagename)
-            with gzip.open(filename,'wt+') as fid:
+            filename = '{}/{}.fasta'.format(output, phagename)
+            with open(filename,'wt+') as fid:
                 print('>{}'.format(phage_metadata), file=fid)
                 print(seq, file=fid)
                 #print('{} is saved as {}.fasta.gz'.format(phage, phagename))

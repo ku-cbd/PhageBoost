@@ -37,6 +37,13 @@ def call_genes(fasta_seqs, meta, min_size_of_contig):
 def read_sequence_file(fasta_file):
     handle = gzip.open(fasta_file, 'rt') if fasta_file.endswith('.gz') else open(fasta_file)
     fasta = [x.upper() for x in Bio.SeqIO.parse(handle, 'fasta')]
+    names = {}
+    for entry in fasta:
+        names.setdefault(entry.name, []).append(entry.name)
+        count = len(names[entry.name])
+        if count >1:
+            entry.name = entry.name + '_%d' % count
+        
     meta = len(fasta) > 2
     return fasta, meta
 
