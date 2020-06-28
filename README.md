@@ -37,21 +37,3 @@ conda activate PhageBoost
 pip install ipykernel
 python -m ipykernel install --user --name PhageBoost --display-name "PhageBoost" 
 ```
-
-
-
-## todo - critical
-1. make feats faster with both numba and cache
-3. add better -h flag than current
-6. for web-version: hard-code everything except length, and sort the res phages with descending probabilities
-7. if x % of contig is predicted, assign the whole contig as phage
-8. parse regions together if close.
-9. proper documentation
-10. after ready for submit, i make the installation as pypi. 
-
-## todo - in future
-2. add a nicer CLI (similar to the alpha phageboost)
-2. use dash/plotly for visualistion
-5. overall beautification
-6. add feeling adventurous button, to disable the .50 mean probability and only keep the std and mean and kruskal
-7. installation as a bioconda package
