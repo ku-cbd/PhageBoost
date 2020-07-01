@@ -16,7 +16,7 @@ to be added
 ```
 conda create -n PhageBoost python=3.7 -y &&
 conda activate PhageBoost &&
-git clone git@github.com:kkpsiren/PhageBoost.git &&
+git clone git@github.com:ku-cbd/PhageBoost.git &&
 cd PhageBoost/ &&
 python setup.py bdist_wheel &&
 pip install --user . 
