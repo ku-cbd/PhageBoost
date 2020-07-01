@@ -15,12 +15,7 @@ to be added
 
 ## Getting Started
 ### Installation
-#### from PyPi
-```
-conda create -n PhageBoost1 python=3.7 &&
-conda activate PhageBoost1 &&
-pip install PhageBoost
-```
+
 #### from github
 ```
 conda create -n PhageBoost python=3.7 &&
