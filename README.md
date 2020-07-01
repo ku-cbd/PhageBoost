@@ -1,5 +1,5 @@
 # PhageBoost
-Rapid discovery of novel prophages using biological feature engineering and machine learning
+Rapid discovery of novel prophages using biological feature engineering and machine learning  
 TBA  
 
 ## Introduction 
