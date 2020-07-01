@@ -37,3 +37,4 @@ conda activate PhageBoost
 pip install ipykernel
 python -m ipykernel install --user --name PhageBoost --display-name "PhageBoost" 
 ```
+[![Downloads](https://img.shields.io/github/downloads/ku-cbd/PhageBoost/total.svg)]()
