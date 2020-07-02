@@ -9,3 +9,4 @@ scipy
 tables
 xgboost
 cachier
+tabulate

@@ -17,7 +17,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import time
 import sys
 import os
-
+import inspect
 #from .bbcache import bbcachier
 
 def call_genes(fasta_seqs, meta, min_size_of_contig):
@@ -87,6 +87,9 @@ def save(output_dir, name, genecalls, res, fasta, look_for_repeat_flag, att_size
     res.to_csv('{}/phages_{}.txt'.format(output_dir,name),sep='\t')
     get_predictions.save_phage_as_fasta(res,fasta,look_for_repeat_flag=look_for_repeat_flag,att_size=att_size,output=output_dir)
 
+def get_params(params,func):
+    return {k: v for k, v in params.items() if k in [p.name for p in inspect.signature(func).parameters.values()]}
+
 def main():
     usage = "%prog [options] file (or - for stdin)\n"
     parser = ArgumentParser(
@@ -120,54 +123,51 @@ def main():
 
     args = parser.parse_args()
 
+    params = {}
     fasta_file = args.files[0]
-    min_size_of_contig = args.min_size_of_contig
-
-    threshold = args.threshold
-    length = args.length
-    gaps = args.gaps
-    neighbouring = args.neighbouring
-
-    # repeat trigger
-    look_for_repeat_flag = args.look_for_repeat_flag
-    search_region = args.search_region
-    inwards = args.inwards
-    att_size = args.attsize
-
-    metamode = args.meta # forces metamode no matter what contigs
-
-    # kruskal
-    alpha = args.alpha
-
-    n_jobs = args.n_jobs # this can be removed in future
-    model_file = args.model
     output = args.output
+    model_file = args.model
 
+    params["min_size_of_contig"] = args.min_size_of_contig
+    params["threshold"] = args.threshold
+    params["length"] = args.length
+    params["gaps"] = args.gaps
+    params["neighbouring"] = args.neighbouring
+    # repeat trigger
+    params["look_for_repeat_flag"] = args.look_for_repeat_flag
+    params["search_region"] = args.search_region
+    params["inwards"] = args.inwards
+    params["att_size"] = args.attsize
+    params["metamode"] = args.meta # forces metamode no matter what contigs
+    # kruskal
+    params["alpha"] = args.alpha
+    params["n_jobs"] = args.n_jobs # this can be removed in future
     # rolling params # only for kruskal/interpretation/visualization purposes therefore hardcoded
-    period = 20
-    win_type = 'parzen'
-    min_periods = 1
+    params["period"] = 20
+    params["win_type"] = 'parzen'
+    params["min_periods"] = 1
 
 
     timer = time.time()
     name = os.path.basename(fasta_file).split('.')[0]
     
     print('processing: {}'.format(name))
-    fasta, meta = read_sequence_file(fasta_file)
-    if metamode ==1:
-        meta = True
+    fasta, params['meta'] = read_sequence_file(fasta_file)
+    if params['metamode'] ==1:
+        params['meta'] = True
 
-    genecalls = call_genes(fasta, meta, min_size_of_contig)
+    params_ =  get_params(params,call_genes)
+    genecalls = call_genes(fasta, **params_)
     print('time after genecalls: {}'.format(time.time()-timer))
 
     df = calculate_features(genecalls)
     print('time after feature calculations: {}'.format(time.time()-timer))
 
-    # read model here to faster debug if it breaks
-    model, feats, feats_, limit = read_model_from_file(model_file)
+    model, params['feats'], feats_, params['limit'] = read_model_from_file(model_file)
     df = get_predictions.get_deltas(df[feats_])
 
-    genecalls, nphages, res = predict(model, genecalls, df, feats, period, win_type, min_periods, limit, threshold, length, gaps, neighbouring, alpha)
+    params_ =  get_params(params,predict)
+    genecalls, nphages, res = predict(model, genecalls, df, **params_)
     print('time after predictions: {}'.format(time.time()-timer))
     print(genecalls['regions'].value_counts().drop('0').to_dict())
 
@@ -175,13 +175,14 @@ def main():
     if nphages == 0:
         print("no phages found ")
         return 0
-    if look_for_repeat_flag == 1:
-        res = look_for_repeats(genecalls, fasta, search_region, inwards)
+    if params["look_for_repeat_flag"] == 1:
+        params_ =  get_params(params,look_for_repeats)
+        res = look_for_repeats(genecalls, fasta, **params_)
     if output:
-        save(output, name, genecalls, res, fasta, look_for_repeat_flag, att_size)
+        params_ =  get_params(params,save)
+        save(output, name, genecalls, res, fasta, **params_)
     else:
         print('no output specified, nothing saved')
         
 if __name__ == '__main__':
     main()
-
