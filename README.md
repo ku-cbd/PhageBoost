@@ -15,7 +15,7 @@ to be added
 
 ## Getting Started
 ### Installation
-#### from PyPI
+#### from PyPI (doesn't work currently)
 ```
 conda create -n PhageBoost-env python=3.7 
 source activate PhageBoost-env
