@@ -15,14 +15,15 @@ to be added
 
 ## Getting Started
 ### Installation
-#### from pypi
+#### from PyPI
 ```
 conda create -n PhageBoost python=3.7 
 conda activate PhageBoost
 pip install PhageBoost 
+PhageBoost -h
 ```
 
-#### from github
+#### from GitHub
 
 ```
 conda create -n PhageBoost python=3.7 
@@ -31,6 +32,7 @@ git clone git@github.com:ku-cbd/PhageBoost.git
 cd PhageBoost/ 
 python setup.py bdist_wheel 
 pip install --user . 
+PhageBoost -h
 ```
 
 ### CLI 
