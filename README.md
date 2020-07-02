@@ -18,7 +18,7 @@ to be added
 #### from PyPI
 ```
 conda create -n PhageBoost-env python=3.7 
-conda activate PhageBoost-env
+source activate PhageBoost-env
 pip install PhageBoost 
 PhageBoost -h
 ```
@@ -27,7 +27,7 @@ PhageBoost -h
 
 ```
 conda create -n PhageBoost-env python=3.7 
-conda activate PhageBoost-env 
+source activate PhageBoost-env 
 git clone git@github.com:ku-cbd/PhageBoost.git 
 cd PhageBoost/ 
 python setup.py bdist_wheel 
