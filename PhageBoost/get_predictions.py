@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Created: 2020-06-09 17:51:48
-# Last changed: Time-stamp: <Last changed 2020-06-28 23:01:07 by Thomas Sicheritz-Pontén, thomas>
+# Last changed: Time-stamp: <Last changed 2020-07-02 12:26:41 by Thomas Sicheritz-Pontén, thomas>
 
 import os
 import pandas as pd
@@ -115,7 +115,7 @@ def load_model(model_file,n_jobs):
 
 def prepare_predicted_phage_regions(res, fasta,look_for_repeat_flag, att_size):
     genomes = {}
-    fasta_dict = {x.id:x.seq for x in fasta}
+    fasta_dict = {x.name:x.seq for x in fasta}
     
     for _, phage in res.iterrows():
         contig = phage['contig']

@@ -7,7 +7,7 @@ import pandas as pd
 #from .bbcache import bbcachier
 
 def parse_genecall(contig,gene,i):
-    name = contig.id
+    name = contig.name
     start = gene.begin
     stop = gene.end
     direction = gene.strand

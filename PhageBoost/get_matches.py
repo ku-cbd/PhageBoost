@@ -40,6 +40,6 @@ def get_startstop(genecalls,phage):
     return phage,genecalls1['contig'].unique()[0],genecalls1['start'].min(),genecalls1['stop'].max(),genecalls1.shape[0],genecalls1['preds'].mean()
 
 def string_search(i,fasta,search_region,inwards):
-    contig = [k for k in fasta if k.id == i['contig']][0]
+    contig = [k for k in fasta if k.name == i['contig']][0]
     res_ = find_better_regions(str(contig.seq),i,search_region,inwards)
     return res_
