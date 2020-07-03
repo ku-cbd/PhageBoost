@@ -8,6 +8,7 @@ sys.path.insert(0, './PhageBoost')
 import glob, gzip
 import time
 from PhageBoost import main as pb
+import PhageBoost
 from tabulate import tabulate
 import pandas as pd
 
@@ -28,8 +29,19 @@ alpha = 0.001
 
 look_for_repeat_flag = False
 
-model_file = 'PhageBoost/models/model_delta_std_hacked.pickled.gz'
-fasta_file = 'example/data/NC_000907.fasta.gz'
+try:
+    model_file = PhageBoost.modelpath()
+    fasta_file = PhageBoost.testdata()
+except:
+    print('PhageBoost environment not installed yet... you in in the github folder?')
+    fasta_file = 'example/data/NC_000907.fasta.gz'
+    model_file = 'models/model_delta_std_hacked.pickled.silent.gz'
+    if len(glob.glob(fasta_file)) > 0:
+        print('you were')
+    else:
+        print('You were not in the github folder hence the error, basically files not found')
+        sys.exit(1)
+
 output = 'ttt'
 timer = time.time()
 name = os.path.basename(fasta_file).split('.')[0]

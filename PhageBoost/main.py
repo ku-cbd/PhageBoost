@@ -6,6 +6,9 @@ from PhageBoost import get_genecalls
 from PhageBoost import get_predictions
 from PhageBoost import get_matches
 from PhageBoost import calc_features
+from PhageBoost import modelpath
+import PhageBoost
+
 import Bio.SeqIO
 import gzip
 import pandas as pd
@@ -100,34 +103,30 @@ def main():
     PhageBoost -f example/data/NC_000907.fasta.gz -o results
     """)
 
-    parser.add_argument("-f", "--file", action="store", type=str, dest="files", default=[], nargs="+")
-    parser.add_argument("-o", "--output", action="store", type=str, dest="output", default=None)
-    parser.add_argument("-m", "--model", action="store", type=str, dest="model", default='/Users/rjl899/githubber/PhageBoost/PhageBoost/models/model_delta_std_hacked.pickled.silent.gz')
-    parser.add_argument("-j", "--threads", action="store", type=int,dest='n_jobs', default = 1)
-    parser.add_argument("-cs", "--mincontigsize", action="store", type=int, dest='min_size_of_contig', default = 10000)
-
-    parser.add_argument("-t", "--threshold", action="store", type=float,dest='threshold', default = 0.9)
-    parser.add_argument("-l", "--length", action="store", type=int,dest='length', default = 10)
-    parser.add_argument("-g", "--gaps", action="store", type=int,dest='gaps', default = 5)
-    parser.add_argument("-n ", "--neighbouring", action="store", type=int,dest='neighbouring', default = 0)
-
-    parser.add_argument("-r ", "--look_for_repeats", action="store", type=int,dest='look_for_repeat_flag', default = 0)
-    parser.add_argument("-sr", "--search-region", action="store", type=int,dest='search_region', default = 5500)
-    parser.add_argument("-i", "--inwards", action="store", type=int,dest='inwards', default = 500)
-    parser.add_argument("-att", "--att-size", action="store", type=int,dest='attsize', default = 14)
-
-    parser.add_argument("-meta", "--meta", action="store", type=int,dest='meta', default = 0)
-
-    parser.add_argument("-a ", "--alpha", action="store", type=float,dest='alpha', default = 0.001)
+    parser.add_argument("-f", "--file", action = "store", type = str, dest = "files", default = [], nargs = "+")
+    parser.add_argument("-o", "--output", action = "store", type = str, dest = "output", default = None)
+    parser.add_argument("-m", "--model", action = "store", type = str, dest = "model", default = PhageBoost.modelpath())
+    parser.add_argument("-j", "--threads", action = "store", type= int ,dest = 'n_jobs', default = 1)
+    parser.add_argument("-cs", "--mincontigsize", action = "store", type = int, dest = 'min_size_of_contig', default = 10000)
+    parser.add_argument("-t", "--threshold", action = "store", type = float, dest = 'threshold', default = 0.9)
+    parser.add_argument("-l", "--length", action = "store", type = int, dest = 'length', default = 10)
+    parser.add_argument("-g", "--gaps", action = "store", type = int, dest = 'gaps', default = 5)
+    parser.add_argument("-n ", "--neighbouring", action = "store", type = int, dest = 'neighbouring', default = 0)
+    parser.add_argument("-r ", "--look_for_repeats", action = "store", type = int, dest = 'look_for_repeat_flag', default = 0)
+    parser.add_argument("-sr", "--search-region", action = "store", type = int, dest = 'search_region', default = 5500)
+    parser.add_argument("-i", "--inwards", action = "store", type = int, dest = 'inwards', default = 500)
+    parser.add_argument("-att", "--att-size", action = "store", type = int, dest = 'attsize', default = 14)
+    parser.add_argument("-meta", "--meta", action = "store", type = int, dest = 'meta', default = 0)
+    parser.add_argument("-a ", "--alpha", action = "store", type = float, dest = 'alpha', default = 0.001)
 
 
     args = parser.parse_args()
 
-    params = {}
     fasta_file = args.files[0]
     output = args.output
     model_file = args.model
 
+    params = {}
     params["min_size_of_contig"] = args.min_size_of_contig
     params["threshold"] = args.threshold
     params["length"] = args.length
