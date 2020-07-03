@@ -39,6 +39,7 @@ setuptools.setup(
     url="https://github.com/ku-cbd/PhageBoost",
     keywords = ['machine learning', 'bioinformatics','phage', 'prophage', 'bacteria', 'ngs', 'metagenomics', 'wgs','microbiology'],
     packages=setuptools.find_packages(),
+    include_package_data=True,
     install_requires=requirements,
     entry_points = {'console_scripts': ['PhageBoost = PhageBoost.main:main']},
         classifiers=[
@@ -51,3 +52,4 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
 )
+    
