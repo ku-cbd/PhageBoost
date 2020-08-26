@@ -16,14 +16,15 @@ except Exception:
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-with open("requirements.txt", "r") as fh:
-    requirements = fh.read()
-requirements = requirements.replace('==', '>=').split('\n')[:-1]
+# with open("requirements.txt", "r") as fh:
+#    requirements = fh.read()
+#requirements = requirements.replace('==', '>=').split('\n')[:-1]
 
 # tweak to autoload the model for linux and OSX.
 path = os.getcwd()
 absolute_model_location = '{}/PhageBoost/models/model_delta_std_hacked.pickled.silent.gz'.format(
     path)
+example_data_location = '{}/example/data/NC_000907.fasta.gz'.format(path)
 with open('PhageBoost/main.py', 'r') as file:
     filedata = file.read()
     filedata = filedata.replace(
@@ -33,8 +34,8 @@ with open('PhageBoost/main.py', 'w') as file:
 
 setuptools.setup(
     name='PhageBoost',
-    version='v0.1.5',
-    author="Kimmo Siren and Thomas Sicheritz-Ponten",
+    version='v0.1.6',
+    author="Kimmo Sirén and Thomas Sicheritz-Pontén",
     author_email='kkpsiren@gmail.com',
     description="a Fast Prophage and Phage Predictor",
     long_description=long_description,
@@ -43,9 +44,12 @@ setuptools.setup(
     keywords=['machine learning', 'bioinformatics', 'phage', 'prophage',
               'bacteria', 'ngs', 'metagenomics', 'wgs', 'microbiology'],
     packages=setuptools.find_packages(),
-    install_requires=requirements,
+    package_data={'PhageBoost': [
+        absolute_model_location, example_data_location]},
+    install_requires="biopython,joblib,more-itertools,numpy,pandas,pickleshare,pyrodigal,scipy,tables,xgboost,cachier,tabulate".split(
+        ','),
     entry_points={'console_scripts': ['PhageBoost = PhageBoost.main:main']},
-        classifiers=[
+    classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

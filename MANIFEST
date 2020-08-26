@@ -5,3 +5,4 @@ PhageBoost/PhageBoost.py
 PhageBoost/__init__.py
 PhageBoost/aa_fast_features_v2_0.py
 PhageBoost/phageboost_workflow.py
+PhageBoost/models/model_delta_std_hacked.pickled.silent.gz

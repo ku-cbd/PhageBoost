@@ -17,6 +17,6 @@ def testdata():
     return _example_data_path
 
 
-version = '0.1.5'
+version = '0.1.6'
 
 __version__ = version

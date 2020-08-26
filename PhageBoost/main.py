@@ -11,7 +11,7 @@ import gzip
 import pandas as pd
 
 import xgboost as xgb
-
+import PhageBoost
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import time
@@ -129,7 +129,7 @@ def main():
     parser.add_argument("-o", "--output", action="store",
                         type=str, dest="output", default=None)
     parser.add_argument("-m", "--model", action="store", type=str, dest="model",
-                        default='/Users/rjl899/githubber/PhageBoost/PhageBoost/models/model_delta_std_hacked.pickled.silent.gz')
+                        default=PhageBoost.modelpath())
     parser.add_argument("-j", "--threads", action="store",
                         type=int, dest='n_jobs', default=1)
     parser.add_argument("-cs", "--mincontigsize", action="store",
