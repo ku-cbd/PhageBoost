@@ -103,11 +103,25 @@ def look_for_repeats(genecalls, fasta, search_region, inwards):
 def save(output_dir, name, genecalls, res, fasta, look_for_repeat_flag, att_size):
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
-    genecalls.to_csv('{}/genecalls_{}.txt'.format(output_dir, name), sep='\t')
-    res.to_csv('{}/phages_{}.txt'.format(output_dir, name), sep='\t')
+    genecalls.to_csv('{}/genecalls_{}.gff3'.format(output_dir, name), sep='\t')
     get_predictions.save_phage_as_fasta(
         res, fasta, look_for_repeat_flag=look_for_repeat_flag, att_size=att_size, output=output_dir)
 
+    res_to_gff(res, output_dir, name)
+    
+def res_to_gff(res, output_dir, name):
+    res.insert(0, 'source', 'PhageBoost')
+    res.insert(0, 'type', 'prophage_prediction')
+    res.insert(0, 'strand', '.')
+    res.insert(0, 'phase', '.')
+    res.rename({'probability':'score', 'contig':'seqid', 'stop':'end'}, axis=1, inplace=True)
+    res.insert(0, 'attributes', 'n_genes=' + res.genes.astype(str) + ';phage_id=' + res.phage)
+    res = res['seqid source type start end score strand phase attributes'.split()]
+    csv_file = '{}/phages_{}.gff'.format(output_dir,name)
+    fid = open(csv_file, 'w+')
+    fid.write('##gff-version 3\n#')
+    res.to_csv(fid, sep='\t', index=False)
+    fid.close()
 
 def get_version():
     from PhageBoost import __version__
