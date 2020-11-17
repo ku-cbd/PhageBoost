@@ -34,7 +34,7 @@ with open('PhageBoost/main.py', 'w') as file:
 
 setuptools.setup(
     name='PhageBoost',
-    version='v0.1.6',
+    version='v0.1.7',
     author="Kimmo Sirén and Thomas Sicheritz-Pontén",
     author_email='kkpsiren@gmail.com',
     description="a Fast Prophage and Phage Predictor",
