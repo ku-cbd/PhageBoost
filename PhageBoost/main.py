@@ -122,6 +122,7 @@ def res_to_gff(res, output_dir, name):
     fid.write('##gff-version 3\n#')
     res.to_csv(fid, sep='\t', index=False)
     fid.close()
+    return csv_file
 
 def get_version():
     from PhageBoost import __version__
