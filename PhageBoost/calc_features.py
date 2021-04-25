@@ -58,14 +58,14 @@ class myCodonAdaptationIndex(CodonAdaptationIndex):
                 dna_sequence = str(seq).upper() 
             else: 
                 dna_sequence = str(seq) 
-                for i in range(0, len(dna_sequence), 3): 
-                  codon = dna_sequence[i:i + 3]
-                  if len(codon) != 3: continue
-                  if codon in self.codon_count: 
+            for i in range(0, len(dna_sequence), 3): 
+                codon = dna_sequence[i:i + 3]
+                if len(codon) != 3: continue
+                if codon in self.codon_count: 
                     self.codon_count[codon] += 1 
-                  else:
+                else:
                     if self.verbose:
-                      print("illegal codon %s in gene" % (codon), dna_sequence, Seq(dna_sequence).translate(), file=sys.stderr)
+                       print("illegal codon %s in gene" % (codon), dna_sequence, Seq(dna_sequence).translate(), file=sys.stderr)
 
 def calculate_CAI(entries):
     name, sequences = list(zip(*entries))
