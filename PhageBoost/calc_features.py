@@ -27,6 +27,9 @@ property_residues  = {'Polar': ['D', 'E', 'H', 'K', 'N', 'Q', 'R', 'S', 'T', 'Z'
 dayhoff_freq = {'A': 8.6, 'C': 2.9, 'E': 6.0, 'D': 5.5, 'G': 8.4, 'F': 3.6, 'I': 4.5, 'H': 2.0, 'K': 6.6, 'M': 1.7, 'L': 7.4, 'N': 4.3, 'Q': 3.9, 'P': 5.2, 'S': 7.0, 'R': 4.9, 'U': 0.1, 'T': 6.1, 'W': 1.3, 'V': 6.6, 'Y': 3.4}
 murphy_10_tab = {'A': 'A', 'C': 'C', 'E': 'E', 'D': 'E', 'G': 'G', 'F': 'F', 'I': 'L', 'H': 'H', 'K': 'K', 'M': 'L', 'L': 'L', 'N': 'E', 'Q': 'E', 'P': 'P', 'S': 'S', 'R': 'K', 'T': 'S', 'W': 'F', 'V': 'L', 'Y': 'F'}
 
+def create_validate_amino_acids_seq(seq):
+    return seq.replace('B', 'D').replace('Z','E').replace('J','I').replace('X','L').replace('U','C').replace('*','').replace('O','K')
+
 def biopython_proteinanalysis_seq(seq, scaling=False):
     res = ProteinAnalysis(seq)
     d = {}
@@ -172,6 +175,7 @@ def biopython_proteinanalysis(entries, scaling=False):
     return df
     
 def RunAA(entries, scaling=False, verbose = False, splitted=False):
+    entries = [(x[0], create_validate_amino_acids_seq(x[1])) for x in entries]
     reduced_entries = [(name,''.join([murphy_10_tab.get(x,x) for x in seq])) for name,seq in entries]
     names, sequences = list(zip(*entries))
     df_entropy = calculate_entropy(entries, is_protein=True)
