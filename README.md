@@ -14,6 +14,9 @@ https://www.biorxiv.org/content/10.1101/2020.08.09.243022v1.abstract
 
 ## Getting Started
 ### Installation
+###
+For now PhageBoost needs XBboost 1.02
+
 #### from PyPI
 ```
 conda create -y -n PhageBoost-env python=3.7 
