@@ -1,4 +1,6 @@
 # PhageBoost
+## $${\color{red}\textsf{(updated Dec 2024, solving XGBoost, BioPython CodonUsage and Pyrodigal errors)}}$$
+
 Rapid discovery of novel prophages using biological feature engineering and machine learning  
 TBA  
 
@@ -15,9 +17,10 @@ https://www.biorxiv.org/content/10.1101/2020.08.09.243022v1.abstract
 ## Getting Started
 ### Installation
 ###
-We have updated the base code to use XGBoost 2 and recent Python(3.11), BioPython and Pyrodigal.
-For now the git hub version should work. 
-As we are working on PhageBoost version 2.0 the current PyPI and notebook version will maybe fixed.
+> [!NOTE]
+> We have updated the base code to use XGBoost 2 and recent Python(3.11), BioPython and Pyrodigal.
+> For now the git hub version should work. 
+> As we are working on PhageBoost version 2.0 the current PyPI and notebook version will maybe fixed.
 
 #### from PyPI
 ```
