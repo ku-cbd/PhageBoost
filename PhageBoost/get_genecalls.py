@@ -19,7 +19,7 @@ def parse_genecall(contig,gene,i):
 #@bbcachier
 def get_genecalls_for_contig(contig, meta=True):
     seq = str(contig.seq)
-    p = pyrodigal.OrfFinder(meta=meta)
+    p = pyrodigal.GeneFinder(meta=meta)
     if not meta: p.train(seq)
     a = p.find_genes(seq)
     genecalls = [parse_genecall(contig, gene, i) for i, gene in enumerate(p.find_genes(seq))]

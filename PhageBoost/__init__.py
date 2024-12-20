@@ -4,7 +4,7 @@ import os
 import PhageBoost
 
 _model_path = os.path.join(os.path.dirname(
-    PhageBoost.__file__), 'models/model_delta_std_hacked.pickled.silent.gz')
+    PhageBoost.__file__), 'models/phageboost_mode_v_1.01.pkl.z')
 _example_data_path = os.path.join(os.path.dirname(
     PhageBoost.__file__), 'example/data/NC_000907.fasta.gz')
 

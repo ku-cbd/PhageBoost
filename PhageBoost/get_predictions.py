@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Created: 2020-06-09 17:51:48
-# Last changed: Time-stamp: <Last changed 2020-07-02 12:26:41 by Thomas Sicheritz-Pontén, thomas>
+# Last changed: Time-stamp: <Last changed 2024-12-20 17:56:21 by Thomas Sicheritz-Pontén, thomas>
 
 import os
 import pandas as pd
@@ -108,8 +108,9 @@ def get_deltas(data):
     data.columns = ['{}-delta'.format(i) for i in data.columns]
     return data
 
-def load_model(model_file,n_jobs):
-    model = pickle.load(gzip.open(model_file, "rb")) if model_file.endswith('.gz') else pickle.load(open(model_file, "rb")) 
+def load_model(model_file, n_jobs):
+    import joblib
+    model = joblib.load(model_file)
     model.set_param({'predictor':'cpu_predictor','nthread': n_jobs})  # set predictions for 1CPU
     return model
 

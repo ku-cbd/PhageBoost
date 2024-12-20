@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Created: Thu Jun  4 22:34:47 2020
-# Last changed: Time-stamp: <Last changed 2020-06-26 16:39:24 by Kimmo Siren>
+# Last changed: Time-stamp: <Last changed 2024-12-20 16:29:42 by Thomas Sicheritz-Pontén, thomas>
 
 import string, re
 import os, sys
@@ -8,9 +8,7 @@ import glob, gzip
 from Bio.SeqIO.FastaIO import SimpleFastaParser
 from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from Bio.Data import IUPACData
-from Bio.SeqUtils.CodonUsage import CodonAdaptationIndex, CodonsDict
 from Bio.SeqUtils.MeltingTemp import Tm_NN
-from Bio.SeqUtils import GC, GC_skew, GC123
 from Bio.Seq import Seq
 from zlib import compress
 import pandas as pd
@@ -19,6 +17,19 @@ from math import log
 import itertools
 from more_itertools import chunked
 from collections import namedtuple
+
+# Biopython removed CodonUsage and the GC
+sys.path.insert(0, '.')
+from CodonUsage import CodonAdaptationIndex, CodonsDict
+
+from Bio.SeqUtils import GC_skew, GC123
+
+def GC(seq):
+    gc = sum(seq.count(x) for x in ["G", "C", "g", "c", "S", "s"])
+    try:
+        return gc * 100.0 / len(seq)
+    except ZeroDivisionError:
+        return 0.0
 
 #from .bbcache import bbcachier
 

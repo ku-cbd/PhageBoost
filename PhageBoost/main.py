@@ -63,13 +63,13 @@ def read_model_from_file(model_file):
     model = get_predictions.load_model(model_file, n_jobs=1)
     feats = model.feature_names
     feats_ = [i.replace('-delta', '') for i in feats]
-    limit = model.best_ntree_limit
-    return model, feats, feats_, limit
+    # limit = model.best_ntree_limit # xgboost2 doesn't have ntree_limit
+    return model, feats, feats_
 
 
-def predict(model, genecalls, df, feats, period, win_type,  min_periods, limit, threshold, length, gaps, neighbouring, alpha):
+def predict(model, genecalls, df, feats, period, win_type,  min_periods, threshold, length, gaps, neighbouring, alpha):
     dtest = xgb.DMatrix(df[feats], feature_names=feats)
-    genecalls['preds'] = model.predict(dtest, ntree_limit=limit)
+    genecalls['preds'] = model.predict(dtest)
     genecalls['preds20'] = 0
 
     for contig in genecalls['contig'].unique():
@@ -172,7 +172,7 @@ def main():
 
     parser.add_argument("-a ", "--alpha", action="store",
                         type=float, dest='alpha', default=0.001)
-    parser.add_argument('-v', '--version', action='version',
+    parser.add_argument('-V', '--version', action='version',
                         version=get_version())
 
     args = parser.parse_args()
@@ -220,11 +220,11 @@ def main():
     print('time after feature calculations: {}'.format(time.time()-timer))
 
     # read model here to faster debug if it breaks
-    model, feats, feats_, limit = read_model_from_file(model_file)
+    model, feats, feats_ = read_model_from_file(model_file)
     df = get_predictions.get_deltas(df[feats_])
 
     genecalls, nphages, res = predict(model, genecalls, df, feats, period,
-                                      win_type, min_periods, limit, threshold, length, gaps, neighbouring, alpha)
+                                      win_type, min_periods, threshold, length, gaps, neighbouring, alpha)
     print('time after predictions: {}'.format(time.time()-timer))
     print(genecalls['regions'].value_counts().drop('0').to_dict())
 
