@@ -15,7 +15,9 @@ https://www.biorxiv.org/content/10.1101/2020.08.09.243022v1.abstract
 ## Getting Started
 ### Installation
 ###
-For now PhageBoost needs XGBoost 1.02
+We have updated the base code to use XGBoost 2 and recent Python(3.11), BioPython and Pyrodigal.
+For now the git hub version should work. 
+As we are working on PhageBoost version 2.0 the current PyPI and notebook version will maybe fixed.
 
 #### from PyPI
 ```
@@ -28,11 +30,11 @@ PhageBoost -h
 #### from GitHub
 
 ```
-conda create -y -n PhageBoost-env python=3.7 
+conda create -y -n PhageBoost-env python=3.11 # python 3.9 - 3.12 should work
 conda activate PhageBoost-env 
 git clone git@github.com:ku-cbd/PhageBoost.git 
 cd PhageBoost/ 
-python setup.py bdist_wheel 
+python setup.py bdist_wheel
 pip install --user . 
 PhageBoost -h
 ```
